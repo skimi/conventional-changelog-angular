@@ -39,12 +39,10 @@ function issueUrl() {
 
 var writerOpts = {
   transform: function(commit) {
-    var discard = true;
     var issues = [];
 
     commit.notes.forEach(function(note) {
       note.title = 'BREAKING CHANGES';
-      discard = false;
     });
 
     if (commit.type === 'feat') {
@@ -55,8 +53,6 @@ var writerOpts = {
       commit.type = 'Performance Improvements';
     } else if (commit.type === 'revert') {
       commit.type = 'Reverts';
-    } else if (discard) {
-      return;
     } else if (commit.type === 'docs') {
       commit.type = 'Documentation';
     } else if (commit.type === 'style') {
